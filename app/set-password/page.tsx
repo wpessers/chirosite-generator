@@ -1,7 +1,8 @@
-import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { KeyIcon, XCircleIcon } from '@heroicons/react/20/solid'
+
+import { createClient } from '@/utils/supabase/server'
 
 export default function SetPassword({
   searchParams,

@@ -1,6 +1,9 @@
-import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+
+import { createClient } from '@/utils/supabase/server'
+import { Container } from '@/components/Container'
+import { Nav } from '@/components/Nav'
 
 export default async function Groups() {
   const cookieStore = cookies()
@@ -26,10 +29,10 @@ export default async function Groups() {
 
   return (
     <>
-      { role === "admin" && <div><p>Test conditional nav</p></div>}
-      <div className="max-w-screen-md mx-auto p-6">
+      { role === "admin" && <Nav href="/groups" />}
+      <Container>
         <p>Placeholder text</p>
-      </div>
+      </Container>
     </>
   )
 }

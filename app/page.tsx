@@ -1,6 +1,9 @@
-import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+
+import { createClient } from '@/utils/supabase/server'
+import { Container } from '@/components/Container'
+import { Nav } from '@/components/Nav'
 
 export default async function Index() {
   'use server'
@@ -55,7 +58,8 @@ export default async function Index() {
 
   return (
     <>
-      <div className="max-w-screen-md mx-auto p-6">
+      { data.role === "admin" && <Nav href="/"></Nav>}
+      <Container>
         <form action={updateUser}>
           <div className="space-y-12">
             <div className="border-b border-white/10 pb-12">
@@ -377,7 +381,7 @@ export default async function Index() {
             </button>
           </div>
         </form>
-      </div>
+      </Container>
     </>
   )
 }
