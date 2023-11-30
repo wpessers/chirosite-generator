@@ -1,5 +1,5 @@
-import { cookies } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
 import { LockClosedIcon, XCircleIcon } from '@heroicons/react/20/solid'
 import { redirect } from 'next/navigation'
 
