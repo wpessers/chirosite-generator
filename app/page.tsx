@@ -1,11 +1,19 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { XCircleIcon } from '@heroicons/react/20/solid'
 
 import { createClient } from '@/utils/supabase/server'
 import { Container } from '@/components/Container'
 import { Nav } from '@/components/Nav'
 
-export default async function Index() {
+export default async function Index({
+  searchParams,
+}: {
+  searchParams: {
+    token: string,
+    message: string,
+  },
+}) {
   'use server'
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
@@ -35,7 +43,7 @@ export default async function Index() {
     } = await supabase.auth.getSession()
   
     if (!session) {
-      redirect('/login')
+      return redirect('/login')
     }
 
     const userData = Object.fromEntries(
@@ -53,7 +61,10 @@ export default async function Index() {
       .from('leidingsinfo')
       .update({ ...userData })
       .eq('id', session.user.id)
-
+    
+    if (error) {
+      return redirect('/?message=Could not update information')
+    }
   }
 
   return (
@@ -381,6 +392,23 @@ export default async function Index() {
             </button>
           </div>
         </form>
+        {searchParams?.message && (
+          <div className="rounded-md bg-red-50 p-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">Something went wrong</h3>
+                <div className="mt-2 text-sm text-red-700">
+                  <p>
+                    {searchParams.message}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </Container>
     </>
   )
