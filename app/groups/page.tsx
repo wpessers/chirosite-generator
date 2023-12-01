@@ -3,7 +3,9 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import { Container } from '@/components/Container'
+import { GroupView } from '@/components/Group'
 import { Nav } from '@/components/Nav'
+import { Person } from '@/interfaces'
 
 export default async function Groups() {
   const cookieStore = cookies()
@@ -27,11 +29,17 @@ export default async function Groups() {
     redirect('/')
   }
 
+  const peopleData = (await supabase
+    .from('leidingsinfo')
+    .select()).data as unknown as Person[]
+
+  const groups = ['Pinkel', 'Speelclub', 'Rakwi', 'Tito', 'Keti', 'Aspi']
+
   return (
     <>
       { role === "admin" && <Nav href="/groups" />}
       <Container>
-        <p>Placeholder text</p>
+        <GroupView groups={groups} peopleData={peopleData}/>
       </Container>
     </>
   )

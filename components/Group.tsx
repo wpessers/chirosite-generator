@@ -5,38 +5,9 @@ import React, { Fragment, useState } from 'react'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
 import { ClipboardDocumentListIcon, ClipboardDocumentCheckIcon, MagnifyingGlassIcon, PlusCircleIcon, TrashIcon, UserIcon, UserPlusIcon, XCircleIcon } from '@heroicons/react/20/solid'
 
+import { GroupMembers, Person } from '@/interfaces'
 
-interface Person {
-  id: string,
-  email: string,
-  phone_number: string,
-  first_name: string,
-  last_name: string,
-  street: string,
-  house_number: string,
-  responsibilities: string,
-  education_occupation: string,
-  hobbies: string,
-  fav_color: string,
-  fav_activity: string,
-  fav_song: string,
-  fav_camp: string,
-  fav_music_genre: string,
-  fav_film_book: string,
-  prev_groups: string,
-  years_active: number,
-  birth_date: string,
-  last_updated?: string,
-  city: string,
-  postal_code: string,
-}
-
-interface GroupMembers {
-  [key: string]: Person[]
-}
-
-
-export default function GroupView({
+export function GroupView({
   groups,
   peopleData,
 }: {
