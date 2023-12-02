@@ -287,7 +287,7 @@ function Search({
                 {query !== '' && filteredPeople.length === 0 && (
                   <div className="px-6 py-14 text-center sm:px-14">
                     <p className="mt-4 text-sm text-gray-200">
-                      We couldn't find any people with that name.
+                      We couldn&apos;t find any people with that name.
                     </p>
                   </div>
                 )}
