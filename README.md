@@ -10,7 +10,7 @@ Auth is done through supabase as well.
 
 #### Auth flow
 
-I have one table to keep track of users' personal information. When a new user gets invited, their email address and a random uuid are inserted into this table. I do this with a trigger on the auth.users table that calls a function to handle the insert:
+I have one table to keep track of users' personal information. When a new user accepts their invite, their email address and a random uuid are inserted into this table. I do this with a trigger on the auth.users table that calls a function to handle the insert. Some users already exist in the system due to a previous bulk import, when these users accept their invite the id will be set for them as well.
 
 **DB Trigger:**
 
@@ -25,7 +25,9 @@ execute function handle_new_user ();
 ```
 begin
   insert into public.userinfo (id, email)
-  values (new.id, new.email);
+  values (new.id, new.email)
+  on conflict (email) do update
+  set id = new.id;
   return new;
 end;
 ```
